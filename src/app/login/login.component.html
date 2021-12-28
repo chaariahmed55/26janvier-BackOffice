@@ -1,0 +1,62 @@
+<div
+  class="lgn-background"
+  style="background-image: url(assets/images/logo_26_1.png)"
+>
+  <div class="lgn-wrapper">
+    <div class="lgn-logo text-center">
+      <a><img src="assets\images\logo_26_1.png" alt="" /></a>
+    </div>
+    <div id="login-form" class="lgn-form">
+      <form class="form-vertical">
+        <div
+          *ngIf="veriflogin == false"
+          class="alert alert-danger"
+          role="alert"
+        >
+          Login ou mot de passe incorrect
+        </div>
+
+        <div class="lgn-input form-group">
+          <label class="control-label col-sm-12">Nom d'utilisateur</label>
+          <div class="col-sm-12">
+            <input
+              class="form-control"
+              type="text"
+              name="username"
+              id="lgn-mail"
+              placeholder="Enter your Username"
+              [(ngModel)]="user.username"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="lgn-input form-group">
+          <label class="control-label col-sm-12">Mot de passe</label>
+          <div class="col-sm-12">
+            <input
+              type="password"
+              name="password"
+              id="lgn-pass"
+              class="form-control"
+              placeholder="Enter your Password"
+              autocomplete="off"
+              [(ngModel)]="user.password"
+            />
+          </div>
+        </div>
+        <div class="lgn-submit">
+          <button
+            type="submit"
+            id="lgn-submit"
+            class="btn btn-primary btn-pill btn-lg"
+            (click)="login()"
+            name="login"
+            style="background-color: #3f51b5; border-color: #3f51b5"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

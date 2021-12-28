@@ -1,0 +1,404 @@
+<div class="page-title">
+  <div class="row align-items-center">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 text-right">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li>Partenaires</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="panel panel-default">
+        <div class="content">
+          <div class="tab-content">
+            <div class="tab-pane active">
+              <div class="pl-2 pr-2">
+                <div class="setting-list">
+                  <div
+                    id="DataTables_Table_0_wrapper"
+                    class="
+                      dataTables_wrapper
+                      container-fluid
+                      dt-bootstrap4
+                      no-footer
+                    "
+                  >
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <table
+                          class="ticket-table dataTable no-footer dtr-inline"
+                          style="width: 100%"
+                          id="DataTables_Table_0"
+                          role="grid"
+                          aria-describedby="DataTables_Table_0_info"
+                        >
+                          <thead>
+                            <tr role="row">
+                              <th
+                                class="d-none sorting_asc"
+                                tabindex="0"
+                                aria-controls="DataTables_Table_0"
+                                rowspan="1"
+                                colspan="1"
+                                style="width: 0px"
+                                aria-sort="ascending"
+                                aria-label=": activate to sort column descending"
+                              ></th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            <tr role="row" class="odd">
+                              <td tabindex="0" class="sorting_1">
+                                <div>
+                                  <div class="pull-right">
+                                    <ul class="fa-pull-right">
+                                      <button
+                                        style="
+                                          margin-top: 10px;
+                                          margin-right: 10px;
+                                          margin-bottom: 10px;
+                                        "
+                                        type="button"
+                                        class="
+                                          btn btn-secondary btn-pill btn-shadow
+                                        "
+                                        (click)="partenairelocal()"
+                                      >
+                                        Partenaires locaux
+                                      </button>
+                                    </ul>
+                                  </div>
+                                  <div class="pull-right">
+                                    <ul class="fa-pull-right">
+                                      <button
+                                        style="
+                                          margin-top: 10px;
+                                          margin-right: 10px;
+                                          margin-bottom: 10px;
+                                        "
+                                        type="button"
+                                        class="
+                                          btn btn-secondary btn-pill btn-shadow
+                                        "
+                                        (click)="partenairesimple()"
+                                      >
+                                        Partenaires
+                                      </button>
+                                    </ul>
+                                  </div>
+                                  <div class="pull-right">
+                                    <ul class="fa-pull-right">
+                                      <button
+                                        style="
+                                          margin-top: 10px;
+                                          margin-right: 10px;
+                                          margin-bottom: 10px;
+                                        "
+                                        type="button"
+                                        class="
+                                          btn btn-secondary btn-pill btn-shadow
+                                        "
+                                        (click)="allpartenaire()"
+                                      >
+                                        All
+                                      </button>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                              <td tabindex="0" class="sorting_1">
+                                <div>
+                                  <div class="pull-right">
+                                    <ul class="fa-pull-right">
+                                      <button
+                                        style="
+                                          margin-top: 10px;
+                                          margin-right: 10px;
+                                          margin-bottom: 10px;
+                                        "
+                                        type="button"
+                                        class="
+                                          btn btn-primary btn-pill btn-shadow
+                                        "
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                      >
+                                        Add <i class="icon-plus mr-2"> </i>
+                                      </button>
+                                    </ul>
+                                  </div>
+                                  <section id="team" class="pb-5">
+                                    <div class="container">
+                                      <div class="row" id="sidebar-OR">
+                                        <div
+                                          class="col-xs-12 col-sm-6 col-md-4"
+                                          *ngFor="let c of partenaires"
+                                        >
+                                          <div>
+                                            <div class="mainflip flip-0">
+                                              <div class="frontside">
+                                                <div class="card">
+                                                  <div
+                                                    class="
+                                                      card-body
+                                                      text-center
+                                                    "
+                                                  >
+                                                    <p>
+                                                      <img
+                                                        src="{{ c.logo }}"
+                                                        alt="card image"
+                                                        alt="Red dot"
+                                                      />
+                                                    </p>
+                                                    <h4 class="card-title">
+                                                      {{ c.type }}
+                                                    </h4>
+                                                  </div>
+
+                                                  <div
+                                                    class="pull-right"
+                                                    align="right"
+                                                  >
+                                                    <a
+                                                      style="
+                                                        background-color: red;
+                                                      "
+                                                      class="
+                                                        btn
+                                                        btn-danger
+                                                        btn-circle
+                                                        m-1
+                                                      "
+                                                      (click)="delete(c)"
+                                                      ><i
+                                                        style="color: aliceblue"
+                                                        class="icon-trash"
+                                                      ></i
+                                                    ></a>
+                                                  </div>
+
+                                                  <div
+                                                    class="pull-right"
+                                                    align="right"
+                                                  >
+                                                    <a
+                                                      style="
+                                                        background-color: green;
+                                                      "
+                                                      class="
+                                                        btn
+                                                        btn-danger
+                                                        btn-circle
+                                                        m-1
+                                                      "
+                                                      (click)="update(c)"
+                                                      data-toggle="modal"
+                                                      data-target="#exampleModaledit"
+                                                      ><i
+                                                        style="color: aliceblue"
+                                                        class="fas fa-edit"
+                                                      ></i
+                                                    ></a>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Photo</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="panel-title-text">Photos details</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <form #Registrationform="ngForm" (ngSubmit)="ajoutpartenaire()">
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Type</label>
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <select
+                      [(ngModel)]="partenaire.type"
+                      class="form-control"
+                      name="type"
+                      value="--Select your Press--"
+                    >
+                      <option>Partenaires locaux</option>
+                      <option>Partenaires</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3" for="adresse">Logo</label>
+                <div class="col-md-9">
+                  <input
+                    type="file"
+                    id="myFile"
+                    name="filename"
+                    (change)="fileChangeEvent($event)"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModaledit"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Photo</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="panel-title-text">Photos details</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <form #Registrationform="ngForm" (ngSubmit)="update1()">
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Type</label>
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <select
+                      [(ngModel)]="partenaire.type"
+                      class="form-control"
+                      name="type"
+                      value="--Select your Press--"
+                    >
+                      <option>Partenaires locaux</option>
+                      <option>Partenaires</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3" for="adresse">Logo</label>
+                <img
+                  [src]="partenaire.logo"
+                  height="150"
+                  width="200px"
+                  style="margin: 3px"
+                />
+                <div class="col-md-9">
+                  <input
+                    type="file"
+                    id="myFile"
+                    name="filename"
+                    (change)="fileChangeEvent($event)"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

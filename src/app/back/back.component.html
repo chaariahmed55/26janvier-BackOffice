@@ -1,0 +1,15 @@
+<!-- <div class="wrapper" *ngIf="isLoggedIn"> -->
+<div class="wrapper">
+  <div id="main-wrapper" class="menu-fixed page-hdr-fixed">
+    <app-menuback></app-menuback>
+    <div class="page-hdr">
+      <app-headerback></app-headerback>
+    </div>
+    <div class="page-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footerback></app-footerback>
+  </div>
+</div>
+
+<!-- <app-login *ngIf="!isLoggedIn"></app-login> -->

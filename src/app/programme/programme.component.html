@@ -1,0 +1,687 @@
+<div class="page-title">
+  <div class="row align-items-center">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 text-right">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li>Programme</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page Body -->
+<div class="page-body" *ngIf="!viewEvent && !viewAllEvents">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="panel panel-default">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="panel-title-text">Catégorie</span>
+          </div>
+          <div class="panel-action"></div>
+        </div>
+        <div class="panel-body">
+          <div class="calendar-external-events">
+            <div
+              class="
+                fc-event fc-event-external fc-start fc-event-primary
+                mb-3
+                ui-draggable ui-draggable-handle
+              "
+              data-color="fc-event-solid-primary"
+            >
+              <div class="fc-content">
+                <span class="fc-title">Interviews</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="calendar-external-events">
+            <div
+              class="
+                fc-event fc-event-external fc-start fc-event-secondary
+                mb-3
+                ui-draggable ui-draggable-handle
+              "
+              data-color="fc-event-solid-primary"
+            >
+              <div class="fc-content">
+                <span class="fc-title">Tournée</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="calendar-external-events">
+            <div
+              class="
+                fc-event fc-event-external fc-start fc-event-success
+                mb-3
+                ui-draggable ui-draggable-handle
+              "
+              data-color="fc-event-solid-primary"
+            >
+              <div class="fc-content">
+                <span class="fc-title">Fonds d'archives</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="calendar-external-events">
+            <div
+              class="
+                fc-event fc-event-external fc-start fc-event-info
+                mb-3
+                ui-draggable ui-draggable-handle
+              "
+              data-color="fc-event-solid-primary"
+            >
+              <div class="fc-content">
+                <span class="fc-title">Plaidoyer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="panel panel-default">
+        <div class="panel-head">
+          <div class="panel-action">
+            <button
+              data-toggle="modal"
+              data-target="#exampleModal"
+              (click)="newProgramForm()"
+            >
+              <i class="icon-plus mr-2"></i> Ajouter Programme
+            </button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <full-calendar [options]="calendarOptions"></full-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="col-md-12" *ngIf="viewEvent">
+  <div class="panel panel-primary">
+    <div class="panel-head">
+      <div class="panel-title">
+        <i class="icon-screen-desktop panel-head-icon font-24"></i>
+        <span class="panel-title-text">{{ displayEvent.title }}</span>
+      </div>
+      <div class="panel-action panel-action-background">
+        <div class="d-inline-block menu-dropdown-wrapper">
+          <a><i class="icon-options-vertical"></i></a>
+          <div
+            class="menu-dropdown menu-dropdown-right menu-dropdown-push-right"
+          >
+            <div class="menu-dropdown-inner">
+              <div class="menu-dropdown-footer">
+                <button class="btn btn-outline btn-primary btn-pill btn-outline-2x btn-sm" data-toggle="modal"
+                data-target="#exampleupdateModal" (click)="updateProgramme(displayEvent)">Modifier le programme</button>
+                <button
+                  class="
+                    btn btn-outline btn-primary btn-pill btn-outline-2x btn-sm
+                  "
+                  (click)="deleteProgramme(displayEvent)"
+                >
+                  Supprimer le programme
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer text-right">
+      <button class="btn btn-success btn-pill" (click)="retour()">
+        Retour
+      </button>
+    </div>
+
+    <div style="width: 100%">
+      <img src="{{ displayEvent.extendedProps.data }}" />
+    </div>
+    <div class="panel-wrapper">
+      <div class="panel-body">
+        <form *ngIf="isProgramDetails" #Registrationform="ngForm">
+          
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Titre Francais</label>
+              <div class="col-md-9">
+                <input
+                  id="title"
+                  type="text"
+                  class="form-control"
+                  name="title"
+                  placeholder="Titre Francais"
+                  value="{{ displayEvent.title }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Titre Arabe</label>
+              <div class="col-md-9">
+                <input
+                  id="titlear"
+                  type="text"
+                  class="form-control"
+                  name="titlear"
+                  placeholder="Titre Arabe"
+                  value="{{ displayEvent.titlear }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Date</label>
+              <div class="col-md-9">
+                <input
+                  id="date"
+                  type="text"
+                  class="form-control"
+                  name="date"
+                  placeholder="date"
+                  value="{{ displayEvent.extendedProps.eventDate | date }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Catégorie</label>
+              <div class="col-md-9">
+                <input
+                  id="category"
+                  type="text"
+                  class="form-control"
+                  name="category"
+                  placeholder="category"
+                  value="{{ displayEvent.extendedProps.category }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Adresse Francais</label>
+              <div class="col-md-9">
+                <input
+                  id="adresse2"
+                  type="text"
+                  class="form-control"
+                  name="adresse2"
+                  placeholder="Adresse Francais"
+                  value="{{ displayEvent.extendedProps.adresse }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Adresse Arabe</label>
+              <div class="col-md-9">
+                <input
+                  id="adresse2"
+                  type="text"
+                  class="form-control"
+                  name="Adresse Arabe"
+                  placeholder="adresse"
+                  value="{{ displayEvent.extendedProps.adresse }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Description Francais</label>
+              <div class="col-md-9">
+                <input
+                  id="description2"
+                  type="text"
+                  class="form-control"
+                  name="description2"
+                  placeholder="Description Francais"
+                  value="{{ displayEvent.extendedProps.description }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <label class="col-md-3" for="name">Description Arabe</label>
+              <div class="col-md-9">
+                <input
+                  id="descriptionar"
+                  type="text"
+                  class="form-control"
+                  name="descriptionar"
+                  placeholder="Description Arabe"
+                  value="{{ displayEvent.extendedProps.descriptionar }}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <label class="col-md-3" for="name">Photo</label>
+            <img
+        src="{{host}}/programme/get/{{displayEvent.extendedProps.idProg}}/thumb.jpg"
+        class="avatar"
+        style="border-radius: 25%; vertical-align: middle; height: 100px"
+      />
+          </div>
+<br><br><br><br><br>
+
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal add programme-->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouveau Programme</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form #Registrationform="ngForm" (ngSubmit)="addProgram()">
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Titre Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="title"
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    placeholder="Ttitre Francais"
+                    [(ngModel)]="programme.title"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Titre Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="titlear"
+                    type="text"
+                    class="form-control"
+                    name="namear"
+                    placeholder="Titre Arabe"
+                    [(ngModel)]="programme.titlear"
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Adresse Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="adresse"
+                    type="text"
+                    class="form-control"
+                    name="adresse"
+                    placeholder="Adresse Francais"
+                    [(ngModel)]="programme.adresse"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Adresse Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="adressear"
+                    type="text"
+                    class="form-control"
+                    name="adressear"
+                    placeholder="Adresse Arabe"
+                    [(ngModel)]="programme.adressear"
+                  />
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Date</label>
+                <div class="col-md-9">
+                  <input
+                    id="date"
+                    type="date"
+                    class="form-control"
+                    name="date"
+                    [(ngModel)]="programme.date"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Catégorie</label>
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <select
+                      [(ngModel)]="programme.categorie"
+                      class="form-control"
+                      name="cats"
+                      id="cats"
+                    >
+                      <option>Interviews</option>
+                      <option>Tournée</option>
+                      <option>Fonds d'archives</option>
+                      <option>Plaidoyer</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="description"
+                    type="text"
+                    class="form-control"
+                    name="description"
+                    placeholder="Description Francais"
+                    [(ngModel)]="programme.description"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="descriptionar"
+                    type="text"
+                    class="form-control"
+                    name="descriptionar"
+                    placeholder="Description Arabe"
+                    [(ngModel)]="programme.descriptionar"
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3" for="adresse">Photo</label>
+                <div class="col-md-9">
+                  <input
+                    type="file"
+                    id="myFile"
+                    name="filename"
+                    (change)="fileChangeEvent($event)"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal update programme-->
+<div
+  class="modal fade"
+  id="exampleupdateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleupdateModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >{{ programmeupdate.title }}/{{ programmeupdate.titlear }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form #Registrationform="ngForm" (ngSubmit)="updateprogramme()">
+            
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Titre Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="title"
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    placeholder="Titre Francais"
+                    [(ngModel)]="programmeupdate.title"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Titre Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="titlear"
+                    type="text"
+                    class="form-control"
+                    name="namear"
+                    placeholder="Titre Arabe"
+                    [(ngModel)]="programmeupdate.titlear"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Adresse Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="adresse"
+                    type="text"
+                    class="form-control"
+                    name="adresse"
+                    placeholder="Adresse Francais"
+                    [(ngModel)]="programmeupdate.adresse"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Adresse Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="adressear"
+                    type="text"
+                    class="form-control"
+                    name="adressear"
+                    placeholder="Adresse Arabe"
+                    [(ngModel)]="programmeupdate.adressear"
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Date</label>
+                <div class="col-md-9">
+                  <input
+                    id="date"
+                    type="date"
+                    class="form-control"
+                    name="date"
+                    [(ngModel)]="programmeupdate.date"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Catégorie</label>
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <select
+                      [(ngModel)]="programmeupdate.categorie"
+                      class="form-control"
+                      name="cats"
+                      id="cats"
+                    >
+                      <option>Interviews</option>
+                      <option>Tournée</option>
+                      <option>Fonds d'archives</option>
+                      <option>Plaidoyer</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="description"
+                    type="text"
+                    class="form-control"
+                    name="description"
+                    placeholder="description"
+                    [(ngModel)]="programmeupdate.description"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="descriptionar"
+                    type="text"
+                    class="form-control"
+                    name="descriptionar"
+                    placeholder="description"
+                    [(ngModel)]="programmeupdate.descriptionar"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3" for="adresse">Photo</label>
+                <img
+            src="{{host}}/programme/get/{{programmeupdate.id}}/thumb.jpg"
+            class="avatar"
+            style="border-radius: 25%; vertical-align: middle; height: 100px"
+          />
+                <div class="col-md-9">
+                  <input
+                    type="file"
+                    id="myFile"
+                    name="filename"
+                    (change)="fileChangeEvent($event)"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" >Modifier</button>
+          </form>
+
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

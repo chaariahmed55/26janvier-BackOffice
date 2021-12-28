@@ -1,0 +1,398 @@
+<div class="page-title">
+  <div class="row align-items-center">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 text-right">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a>Home</a></li>
+          <li>Plaidoyer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!------------------------------------------------------------------------------------------------------------------------>
+
+<div class="table100 ver6 m-b-110">
+  <table data-vertable="ver6">
+    <thead>
+      <tr class="row100 head">
+        <th class="column100 column1" data-column="column1"></th>
+        <th class="column100 column1" data-column="column1"></th>
+        <th class="column100 column1" data-column="column1"></th>
+        <th class="column100 column2" data-column="column2"></th>
+        <th class="column100 column3" data-column="column3"></th>
+        <th class="column100 column3" data-column="column3"></th>
+        <th class="column100 column4" data-column="column4"></th>
+        <th class="column100 column5" data-column="column5"></th>
+        <th class="column100 column6" data-column="column6"></th>
+        <th class="column100 column7" data-column="column7"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row100" *ngFor="let v of pledoyers">
+        <td class="column100 column1" data-column="column1" (click)="show(v)" data-toggle="modal"
+          data-target="#exampleModalshow">
+          <img src="{{host}}/photopledoyer/getall/{{v['photoPledoyers']['id']}}/thumb.jpg" class="avatar"
+            style="border-radius: 80%; vertical-align: middle; height: 80px" />
+        </td>
+        <td class="column100 column1" data-column="column1">{{ v.titre }}</td>
+        <td class="column100 column1" data-column="column1">{{ v.titrear }}</td>
+        <td class="column100 column2" data-column="column2">{{ v.date }}</td>
+        <td class="column100 column3" data-column="column3">
+          {{ v.description }}
+        </td>
+        <td class="column100 column3" data-column="column3">
+          {{ v.descriptionar }}
+        </td>
+        <td class="column100 column4" data-column="column4">{{ v.source }}</td>
+        <td class="column100 column5" data-column="column5">
+          <button type="button"
+          class="btn btn-outline-success"
+          style="border-color: transparent" data-toggle="modal" data-target="#exampleModaledit"
+            (click)="update(v)">
+            <i class="fas fa-edit"></i> Modifier Projection
+          </button>
+        </td>
+        <td class="column100 column6" data-column="column6">
+          <button type="button"
+          class="btn btn-outline-success"
+          style="border-color: transparent" data-toggle="modal" data-target="#exampleModaleditImages"
+            (click)="update(v)">
+            <i class="fas fa-edit"></i> Modifier Images
+          </button>
+        </td>
+        <td class="column100 column7" data-column="column7">
+          <button type="button"
+          class="btn btn-outline-danger"
+          style="border-color: transparent" (click)="delete(v)">
+            <i class="fa fa-trash-o" style="font-size: 24px"></i>
+          </button>
+        </td>
+      </tr>
+
+      <tr class="row100">
+        <td class="column100 column1" data-column="column1">
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+            Add+
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Projection Debat</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <!-----------------------------------------------------------form group---------------------------------------------------------->
+          <form [formGroup]="myForm" (ngSubmit)="ajoutpd()">
+            <div class="progress">
+              <div *ngIf="progressivebarvalue == 0" class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+              <div *ngIf="progressivebarvalue == 50" class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+              <div *ngIf="progressivebarvalue == 100" class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+            <br /><br />
+            <div *ngIf="progressivebarvalue == 0">
+              
+              <div class="form-group">
+                <div class="form-row">
+                  <label class="col-md-3" for="name">Titre Francais</label>
+                  <div class="col-md-9">
+                    <input id="title" type="text" class="form-control" name="name" placeholder="name"
+                      formControlName="title" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-row">
+                  <label class="col-md-3" for="name">Titre Arabe</label>
+                  <div class="col-md-9">
+                    <input id="titlear" type="text" class="form-control" name="namear" placeholder="Titre Arabe"
+                      formControlName="titlear" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-row">
+                  <label class="col-md-3" for="name">Description Francais</label>
+                  <div class="col-md-9">
+                    <textarea name="description" class="form-control" id="description" rows="3"
+                      formControlName="description"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-row">
+                  <label class="col-md-3" for="name">Description Arabe</label>
+                  <div class="col-md-9">
+                    <textarea name="descriptionar" class="form-control" id="descriptionar" rows="3"
+                      formControlName="descriptionar"></textarea>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <div class="form-row">
+                  <label class="col-md-3" for="name">Source</label>
+                  <div class="col-md-9">
+                    <textarea name="source" class="form-control" id="source" rows="3"
+                      formControlName="source"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="md-form md-outline input-with-post-icon datepicker" id="customDays">
+                <input placeholder="Select date" type="date" id="Customization" class="form-control" name="date"
+                  formControlName="date" />
+              </div>
+            </div>
+            <div *ngIf="progressivebarvalue == 50">
+              <div class="form-group">
+                <label for="file">File</label>
+                <input formControlName="file" id="file" type="file" class="form-control" multiple=""
+                  (change)="onFileChange($event)" />
+                <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+                  <div *ngIf="f.file.errors.required">File is required.</div>
+                </div>
+              </div>
+              <img *ngFor="let url of images" [src]="url" height="150" width="200px" style="margin: 3px" />
+              <br />
+            </div>
+
+            <div *ngIf="progressivebarvalue == 100">
+              <div class="text-center">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" [hidden]="progressivebarvalue == 100" (click)="next()">
+              Next
+            </button>
+          </form>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalshow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ pledoyer.titre }}/{{ pledoyer.titrear }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Titre Francais</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="statictitle"
+                  value="{{ pledoyer.titre }}" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Title Arabe</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="statictitlear"
+                  value="{{ pledoyer.titrear }}" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Description Francais</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticauthor"
+                  value="{{ pledoyer.description }}" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Description Arabe</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticauthorar"
+                  value="{{ pledoyer.descriptionar }}" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Source</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticsource"
+                  value="{{ pledoyer.source }}" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">date</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticdate"
+                  value="{{ pledoyer.date }}" />
+              </div>
+            </div>
+          </form>
+
+          <span *ngFor="let v of photopledoyers">
+            <img [src]="v.data" class="avatar" style="border-radius: 25%; vertical-align: middle; height: 100px" />
+          </span>
+
+          <div class="modal-footer">
+            <button type="button" #closebutton class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+<div class="modal fade" id="exampleModaledit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ pledoyer.titre}}/{{ pledoyer.titrear}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <div class="text-center" *ngIf="editable == true">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Titre Francais</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control-plaintext" id="statictitle" name="title"
+                  value="{{ pledoyer.titre }}" [(ngModel)]="pledoyer.titre" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Titre Arabe</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control-plaintext" id="statictitlear" name="titlear"
+                  value="{{ pledoyer.titrear}}" [(ngModel)]="pledoyer.titrear" />
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Description Francais</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control-plaintext" id="staticauthor" name="description"
+                  value="{{ pledoyer.description }}" [(ngModel)]="pledoyer.description" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Description Arabe</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control-plaintext" id="staticauthorar" name="descriptionar"
+                  value="{{ pledoyer.descriptionar }}" [(ngModel)]="pledoyer.descriptionar" />
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Source</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control-plaintext" id="staticsource" name="source"
+                  value="{{ pledoyer.source }}" [(ngModel)]="pledoyer.source" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">date</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control-plaintext" id="staticdate" name="date"
+                  value="{{ pledoyer.date }}" [(ngModel)]="pledoyer.date" />
+              </div>
+            </div>
+            <button type="button" class="btn btn-success" (click)="update1()">
+              <i class="fas fa-edit"></i>Modifier
+            </button>
+          </form>
+          <div class="modal-footer">
+            <button type="button" #closebutton class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+<div class="modal fade" id="exampleModaleditImages" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ pledoyer.titre}}/{{ pledoyer.titrear}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <span *ngFor="let v of photopledoyers">
+              <img [src]="v.data" class="avatar" style="
+                  border-radius: 25%;
+                  vertical-align: middle;
+                  height: 100px;
+                  margin-left: 30%;
+                " />
+              <div class="mb-3">
+                <input class="form-control" type="file" id="formFile" (change)="onFileChange($event)"
+                  (click)="getselectedid(v)" />
+              </div>
+            </span>
+
+            <button type="button" class="btn btn-success" (click)="update2()">
+              <i class="fas fa-edit"></i>Modifier
+            </button>
+          </form>
+
+          <div class="modal-footer">
+            <button type="button" #closebutton class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

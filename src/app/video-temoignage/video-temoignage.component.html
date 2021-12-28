@@ -1,0 +1,541 @@
+<div class="page-title">
+  <div class="row align-items-center">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 text-right">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li>Video Temoignage</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table100 ver6 m-b-110">
+  <table data-vertable="ver6">
+    <thead>
+      <tr class="row100 head">
+        <th class="column100 column1" data-column="column1"></th>
+        <th class="column100 column2" data-column="column2"></th>
+        <th class="column100 column3" data-column="column3"></th>
+        <th class="column100 column3" data-column="column3"></th>
+        <th class="column100 column4" data-column="column4"></th>
+        <th class="column100 column5" data-column="column5"></th>
+        <th class="column100 column5" data-column="column5"></th>
+        <th class="column100 column6" data-column="column6"></th>
+        <th class="column100 column7" data-column="column7"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row100" *ngFor="let c of videotemoignages">
+        <td
+          class="column100 column1"
+          data-column="column1"
+          data-toggle="modal"
+          data-target="#exampleModalshow"
+          (click)="show(c)"
+        >
+          <img
+            src="{{host}}/videotemoignage/get/{{c['id']}}/thumb.jpg"
+            class="avatar"
+            style="border-radius: 80%; vertical-align: middle; height: 80px"
+          />
+        </td>
+        <td class="column100 column2" data-column="column2">{{ c.path }}</td>
+        <td class="column100 column3" data-column="column3">{{ c.titre }}</td>
+        <td class="column100 column3" data-column="column3">{{ c.titrear }}</td>
+        <td class="column100 column4" data-column="column4">{{ c.date }}</td>
+        <td class="column100 column5" data-column="column5">
+          {{ c.description }}
+        </td>
+        <td class="column100 column5" data-column="column5">
+          {{ c.descriptionar }}
+        </td>
+        <td class="column100 column6" data-column="column6">
+          <button
+          type="button"
+          class="btn btn-outline-success"
+          style="border-color: transparent"
+            data-toggle="modal"
+            data-target="#exampleModaledit"
+            (click)="update(c)"
+          >
+            <i class="fas fa-edit"></i>Modifier La Video
+          </button>
+        </td>
+        <td class="column100 column7" data-column="column7">
+          <button type="button"
+          class="btn btn-outline-danger"
+          style="border-color: transparent" (click)="delete(c)">
+            <i class="fa fa-trash-o" style="font-size: 24px"></i>
+          </button>
+        </td>
+      </tr>
+
+      <tr class="row100">
+        <td class="column100 column1" data-column="column1">
+          <button
+            type="button"
+            class="btn btn-dark"
+            data-toggle="modal"
+            data-target="#exampleModal"
+          >
+            Add+
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--modal-->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Nouvelle Video Temoignage
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form
+            [formGroup]="myForm"
+            #Registrationform="ngForm"
+            (ngSubmit)="ajoutvideoarchive()"
+          >
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Chemin de la video</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="Url de la video"
+                    name="path"
+                    formControlName="path"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Titre Francais</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="Titre"
+                    name="titre"
+                    formControlName="titre"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Titre Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="Titrear"
+                    name="titrear"
+                    formControlName="titrear"
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Description Francais</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="Description"
+                    name="description"
+                    formControlName="description"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Description Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="Descriptionar"
+                    name="descriptionar"
+                    formControlName="descriptionar"
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div
+              class="md-form md-outline input-with-post-icon datepicker"
+              id="customDays"
+            >
+              <input
+                placeholder="Select date"
+                type="date"
+                id="Customization"
+                class="form-control"
+                name="date"
+                formControlName="date"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="file">File</label>
+              <input
+                formControlName="file"
+                id="file"
+                type="file"
+                class="form-control"
+                multiple=""
+                (change)="onFileChange($event)"
+              />
+              <div
+                *ngIf="f.file.touched && f.file.invalid"
+                class="alert alert-danger"
+              >
+                <div *ngIf="f.file.errors.required">File is required.</div>
+              </div>
+            </div>
+            <img
+              *ngFor="let url of images"
+              [src]="url"
+              height="150"
+              width="200px"
+              style="margin: 3px"
+            />
+            <br />
+
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModalshow"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ videotemoignage.titre }}/{{ videotemoignage.titrear }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Chemin de la video</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    disabled
+                    name="path"
+                    value="{{ videotemoignage.path }}"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Titre Francais</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    disabled
+                    name="titre"
+                    value="{{ videotemoignage.titre }}"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Titre Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    disabled
+                    name="titrear"
+                    value="{{ videotemoignage.titrear }}"
+                  />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Description Francais</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    disabled
+                    name="description"
+                    value="{{ videotemoignage.description }}"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Description Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    disabled
+                    name="descriptionar"
+                    value="{{ videotemoignage.descriptionar }}"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">date</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    disabled
+                    name="description"
+                    value="{{ videotemoignage.date }}"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+          <youtube-player *ngIf="safeURL != ''" [videoId]="safeURL">
+          </youtube-player>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              (click)="reload()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModaledit"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ videotemoignage.titre }}/{{ videotemoignage.titrear }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label"
+                >Title Francais</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="statictitle"
+                  name="title"
+                  value="{{ videotemoignage.titre }}"
+                  [(ngModel)]="videotemoignage.titre"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label"
+                >Title Arabe</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="statictitlear"
+                  name="titlear"
+                  value="{{ videotemoignage.titrear }}"
+                  [(ngModel)]="videotemoignage.titrear"
+                />
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label"
+                >Description Francais</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="staticauthor"
+                  name="description"
+                  value="{{ videotemoignage.description }}"
+                  [(ngModel)]="videotemoignage.description"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label"
+                >Description Arabe</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="staticauthorar"
+                  name="descriptionar"
+                  value="{{ videotemoignage.descriptionar }}"
+                  [(ngModel)]="videotemoignage.descriptionar"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label"
+                >Source</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="staticsource"
+                  name="source"
+                  value="{{ videotemoignage.path }}"
+                  [(ngModel)]="videotemoignage.path"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label"
+                >date</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="date"
+                  class="form-control-plaintext"
+                  id="staticdate"
+                  name="date"
+                  value="{{ videotemoignage.date }}"
+                  [(ngModel)]="videotemoignage.date"
+                />
+              </div>
+            </div>
+
+            <img
+              src="{{host}}/videotemoignage/get/{{videotemoignage.id}}/thumb.jpg"
+              class="avatar"
+              style="
+                border-radius: 25%;
+                vertical-align: middle;
+                height: 100px;
+                margin-left: 30%;
+              "
+            />
+            <div class="mb-3">
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                (change)="onFileChange($event)"
+              />
+            </div>
+            <button type="button" class="btn btn-success" (click)="update1()">
+              <i class="fas fa-edit"></i>Modifier
+            </button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

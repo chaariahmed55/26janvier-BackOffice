@@ -1,0 +1,201 @@
+<div class="page-title">
+  <div class="row align-items-center">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 text-right">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li>Presse</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table100 ver6 m-b-110">
+  <table data-vertable="ver6">
+    <thead>
+      <tr class="row100 head">
+        <th class="column100 column1" data-column="column1"></th>
+        <th class="column100 column2" data-column="column2"></th>
+        <th class="column100 column3" data-column="column3"></th>
+        <th class="column100 column4" data-column="column4"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row100" *ngFor="let c of presses">
+        <td class="column100 column1" data-column="column1">{{ c.name }}</td>
+        <td class="column100 column2" data-column="column2">{{ c.type }}</td>
+        <td class="column100 column3" data-column="column3">
+          <button
+            type="button"
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#exampleModaledit"
+            (click)="update(c)"
+          >
+            <i class="fas fa-edit"></i> Modifier
+          </button>
+        </td>
+        <td class="column100 column4" data-column="column4">
+          <button type="button" class="btn btn-secondary" (click)="delete(c)">
+            <i class="fa fa-trash-o" style="font-size: 24px"></i>
+          </button>
+        </td>
+      </tr>
+
+      <tr class="row100">
+        <td class="column100 column1" data-column="column1">
+          <button
+            type="button"
+            class="btn btn-dark"
+            data-toggle="modal"
+            data-target="#exampleModal"
+          >
+            Add+
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--modal-->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouvelle Presse</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form #Registrationform="ngForm" (ngSubmit)="ajoutpresse()">
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">name</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="name"
+                    [(ngModel)]="presse.name"
+                    name="name"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Type</label>
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <select
+                      [(ngModel)]="presse.type"
+                      class="form-control"
+                      name="type"
+                      aria-placeholder="--Select your Press--"
+                    >
+                      <option>Presse Tunisienne</option>
+                      <option>Presse Internationale</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-------------------------------------------------------------------------------------------------------------------------------------------->
+<div
+  class="modal fade"
+  id="exampleModaledit"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouvelle Presse</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form #Registrationform="ngForm" (ngSubmit)="update1()">
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="nom">name</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="name"
+                    [(ngModel)]="presse.name"
+                    name="name"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <label class="col-md-3" for="nom">Type de la Presse</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    placeholder="type"
+                    disabled
+                    [(ngModel)]="presse.type"
+                    name="type"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Modifier</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

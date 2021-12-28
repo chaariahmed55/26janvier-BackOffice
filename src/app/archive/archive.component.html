@@ -1,0 +1,472 @@
+<div class="page-title">
+  <div class="row align-items-center">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 text-right">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li>Photo Archive</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="panel panel-default">
+        <div class="content">
+          <div class="tab-content">
+            <div class="tab-pane active">
+              <div class="pl-2 pr-2">
+                <div class="setting-list">
+                  <div
+                    id="DataTables_Table_0_wrapper"
+                    class="
+                      dataTables_wrapper
+                      container-fluid
+                      dt-bootstrap4
+                      no-footer
+                    "
+                  >
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <table
+                          class="ticket-table dataTable no-footer dtr-inline"
+                          style="width: 100%"
+                          id="DataTables_Table_0"
+                          role="grid"
+                          aria-describedby="DataTables_Table_0_info"
+                        >
+                          <thead>
+                            <tr role="row">
+                              <th
+                                class="d-none sorting_asc"
+                                tabindex="0"
+                                aria-controls="DataTables_Table_0"
+                                rowspan="1"
+                                colspan="1"
+                                style="width: 0px"
+                                aria-sort="ascending"
+                                aria-label=": activate to sort column descending"
+                              ></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr role="row" class="odd">
+                              <td tabindex="0" class="sorting_1">
+                                <div></div>
+                              </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                              <td tabindex="0" class="sorting_1">
+                                <div>
+                                  <div class="pull-right">
+                                    <ul class="fa-pull-right">
+                                      <button
+                                        style="
+                                          margin-top: 10px;
+                                          margin-right: 10px;
+                                          margin-bottom: 10px;
+                                        "
+                                        type="button"
+                                        class="
+                                          btn btn-primary btn-pill btn-shadow
+                                        "
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                      >
+                                        Add <i class="icon-plus mr-2"> </i>
+                                      </button>
+                                    </ul>
+                                  </div>
+                                  <section id="team" class="pb-5" style="width: 100%;">
+                                    <div class="container" >
+                                      <div class="row" id="sidebar-OR" >
+                                        <div
+                                          class="flip-card"
+                                          *ngFor="let c of photoarchives"
+                                          style="padding-left: 10px;padding-right:10px;"
+                                        >
+                                          <div class="flip-card-inner">
+                                            <div class="flip-card-front">
+                                              <img
+                                                src="{{host}}/photoarchive/getall/{{c['id']}}/thumb.jpg"
+                                                alt="Avatar"
+                                                style="
+                                                  width: 100%;
+                                                  height: 100%;
+                                                "
+                                              />
+                                            </div>
+                                            <div class="flip-card-back">
+                                              <h3>{{ c.name }}/{{ c.namear }}</h3>
+                                              <p>{{ c.description }}</p>
+                                              <p>{{ c.descriptionar }}</p>
+                                              <p>{{ c.date }}</p>
+                                              <p>{{ c.source }}</p>
+
+                                              <div
+                                                class="pull-right"
+                                                align="right"
+                                              >
+                                                <a
+                                                  style="background-color: red"
+                                                  class="
+                                                    btn btn-danger btn-circle
+                                                    m-1
+                                                  "
+                                                  (click)="delete(c)"
+                                                  ><i
+                                                    style="color: aliceblue"
+                                                    class="icon-trash"
+                                                  ></i
+                                                ></a>
+                                              </div>
+
+                                              <div
+                                                class="pull-right"
+                                                align="right"
+                                              >
+                                                <a
+                                                  style="
+                                                    background-color: green;
+                                                  "
+                                                  class="
+                                                    btn btn-danger btn-circle
+                                                    m-1
+                                                  "
+                                                  (click)="update(c)"
+                                                  data-toggle="modal"
+                                                  data-target="#exampleModaledit"
+                                                  ><i
+                                                    style="color: aliceblue"
+                                                    class="fas fa-edit"
+                                                  ></i
+                                                ></a>
+                                              </div>
+
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nouvelle Photo</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="panel-title-text">Photos details</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <form
+            [formGroup]="myForm"
+            #Registrationform="ngForm"
+            (ngSubmit)="ajoutpartenaire()"
+          >
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name"> Nom Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="title"
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    placeholder="Nom Francais"
+                    formControlName="title"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Nom Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="titlear"
+                    type="text"
+                    class="form-control"
+                    name="namear"
+                    placeholder="Nom Arabe"
+                    formControlName="titlear"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Francais</label>
+                <div class="col-md-9">
+                  <textarea
+                    name="description"
+                    class="form-control"
+                    id="description"
+                    rows="3"
+                    formControlName="description"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Arabe</label>
+                <div class="col-md-9">
+                  <textarea
+                    name="descriptionar"
+                    class="form-control"
+                    id="descriptionar"
+                    rows="3"
+                    formControlName="descriptionar"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Source</label>
+                <div class="col-md-9">
+                  <textarea
+                    name="source"
+                    class="form-control"
+                    id="source"
+                    rows="3"
+                    formControlName="source"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="md-form md-outline input-with-post-icon datepicker"
+              id="customDays"
+            >
+              <input
+                placeholder="Select date"
+                type="date"
+                id="Customization"
+                class="form-control"
+                name="date"
+                formControlName="date"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="file">File</label>
+              <input
+                formControlName="file"
+                id="file"
+                type="file"
+                class="form-control"
+                multiple=""
+                (change)="onFileChange($event)"
+              />
+              <div
+                *ngIf="f.file.touched && f.file.invalid"
+                class="alert alert-danger"
+              >
+                <div *ngIf="f.file.errors.required">File is required.</div>
+              </div>
+            </div>
+            <img
+              *ngFor="let url of images"
+              [src]="url"
+              height="150"
+              width="200px"
+              style="margin: 3px"
+            />
+            <br />
+
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModaledit"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editer Photo</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span class="panel-title-text">Photos details</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <form #Registrationform="ngForm" (ngSubmit)="update1()">
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Nom Francais</label>
+                <div class="col-md-9">
+                  <input
+                    id="title"
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    [(ngModel)]="photoarchive.name"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Nom Arabe</label>
+                <div class="col-md-9">
+                  <input
+                    id="title"
+                    type="text"
+                    class="form-control"
+                    name="namear"
+                    [(ngModel)]="photoarchive.namear"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Arabe</label>
+                <div class="col-md-9">
+                  <textarea
+                    name="description"
+                    class="form-control"
+                    id="description"
+                    rows="3"
+                    [(ngModel)]="photoarchive.description"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <label class="col-md-3" for="name">Description Arabe</label>
+                <div class="col-md-9">
+                  <textarea
+                    name="descriptionar"
+                    class="form-control"
+                    id="descriptionar"
+                    rows="3"
+                    [(ngModel)]="photoarchive.descriptionar"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="md-form md-outline input-with-post-icon datepicker"
+              id="customDays"
+            >
+              <input
+                placeholder="Select date"
+                type="date"
+                id="Customization"
+                class="form-control"
+                name="date"
+                [(ngModel)]="photoarchive.date"
+              />
+            </div>
+
+            <img
+              src="{{host}}/photoarchive/getall/{{photoarchive.id}}/thumb.jpg"
+              height="150"
+              width="200px"
+              style="margin: 3px"
+            />
+            <input
+              class="form-control"
+              type="file"
+              id="formFile"
+              (change)="onFileChange($event)"
+            />
+
+            <br />
+            <button type="submit" class="btn btn-primary">Modifier</button>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              #closebutton
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

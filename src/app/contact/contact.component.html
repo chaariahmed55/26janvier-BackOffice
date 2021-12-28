@@ -1,0 +1,218 @@
+<div class="page-title">
+  <div class="row align-items-center">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 text-right">
+      <div class="breadcrumbs">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li>Contact</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body p-0">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item active">
+              <a (click)="getcontact()" class="nav-link">
+                <i class="fas fa-inbox"></i> Inbox
+                <span class="badge bg-info float-right">{{
+                  numbrenonvue
+                }}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a (click)="getmovedcontact()" class="nav-link">
+                <i class="far fa-trash-alt"></i> Trash
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <h3 class="card-title">Inbox</h3>
+          <div class="card-tools">
+            <div class="input-group input-group-sm">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search Mail"
+                [(ngModel)]="email"
+              />
+              <div class="input-group-append">
+                <div class="btn btn-primary">
+                  <button (click)="search()">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="mailbox-controls">
+            <div class="float-right">
+              {{ page * 10 + 1 }}-{{ page * 10 + 10 }}/{{ maxpage }}
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="btn btn-default btn-sm"
+                  [disabled]="page == 0"
+                  (click)="previous()"
+                >
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-default btn-sm"
+                  [disabled]="page == maxpage1"
+                  (click)="next()"
+                >
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive mailbox-messages">
+            <table class="table table-hover table-striped">
+              <tbody>
+                <tr *ngFor="let c of contacts">
+                  <td *ngIf="c.vue == true && c.moved == false">
+                    <button
+                      type="button"
+                      class="btn btn-default btn-sm"
+                      (click)="delete(c)"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </td>
+                  <td
+                    class="mailbox-name"
+                    *ngIf="c.vue == true && c.moved == false"
+                  >
+                    <a
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      (click)="showcontact(c)"
+                      >{{ c.name }}</a
+                    >
+                  </td>
+                  <td
+                    class="mailbox-subject"
+                    *ngIf="c.vue == true && c.moved == false"
+                  >
+                    <b>{{ c.email }}</b> - {{ c.subject }}
+                  </td>
+                  <td
+                    class="mailbox-date"
+                    *ngIf="c.vue == true && c.moved == false"
+                  >
+                    5 mins ago
+                  </td>
+                  <td
+                    style="background-color: #e5e7e6"
+                    *ngIf="c.vue == false && c.moved == false"
+                  >
+                    <button
+                      (click)="delete(c)"
+                      type="button"
+                      class="btn btn-default btn-sm"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </td>
+                  <td
+                    class="mailbox-name"
+                    style="background-color: #e5e7e6"
+                    *ngIf="c.vue == false && c.moved == false"
+                  >
+                    <a
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      (click)="showcontact(c)"
+                      >{{ c.name }}</a
+                    >
+                  </td>
+                  <td
+                    class="mailbox-subject"
+                    style="background-color: #e5e7e6"
+                    *ngIf="c.vue == false && c.moved == false"
+                  >
+                    <b>{{ c.email }}</b> - {{ c.subject }}
+                  </td>
+                  <td
+                    class="mailbox-date"
+                    style="background-color: #e5e7e6"
+                    *ngIf="c.vue == false && c.moved == false"
+                  >
+                    5 mins ago
+                  </td>
+                  <td class="mailbox-name" *ngIf="c.moved == true">
+                    <a
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      (click)="showcontact(c)"
+                      >{{ c.name }}</a
+                    >
+                  </td>
+                  <td class="mailbox-subject" *ngIf="c.moved == true">
+                    <b>{{ c.email }}</b> - {{ c.subject }}
+                  </td>
+                  <td class="mailbox-date" *ngIf="c.moved == true">
+                    5 mins ago
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style="width: 100%"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="card-header">
+        <h4 class="card-title">Read Mail</h4>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="mailbox-read-info">
+          <h5>{{ contact.subject }}</h5>
+          <h6>
+            From: {{ contact.email }}
+            <!-- <span class="mailbox-read-time float-right">15 Feb. 2015 11:03 PM</span>-->
+          </h6>
+        </div>
+        <div class="mailbox-read-message">
+          <p>Hello,</p>
+          <p>{{ contact.message }}.</p>
+          <p>Thanks,<br />{{ contact.name }}</p>
+        </div>
+      </div>
+      <!-- <div class="card-footer">
+            <button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Delete</button>
+          </div> -->
+    </div>
+  </div>
+</div>
