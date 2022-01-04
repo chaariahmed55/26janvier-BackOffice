@@ -39,7 +39,9 @@ export class PledoyerService {
     let parametre = new HttpParams()
       .set('date', objet.date)
       .set('titre', objet.titre)
+      .set('titrear', objet.titrear)
       .set('description', objet.description)
+      .set('descriptionar', objet.descriptionar)
       .set('admin_id', objet.admin['id'].toString())
       .set('source', objet.source);
     return this.httpClient.post<Pledoyer>(
