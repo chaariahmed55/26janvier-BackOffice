@@ -80,7 +80,7 @@ export class ArchiveComponent implements OnInit {
     this.archiveservice.deletephoto(objet);
     setTimeout(function () {
       location.reload();
-    }, 100);
+    }, 500);
   }
 
   update(objet) {
